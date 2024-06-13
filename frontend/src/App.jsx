@@ -1,9 +1,10 @@
 import "./App.css";
+import Auth from "./components/login.jsx";
 
 function App() {
   return (
     <>
-      <h1>Home Page</h1>
+    <Auth></Auth>      
     </>
   );
 }
