@@ -9,17 +9,22 @@ import routes from "./routes/basicRoutes.js";
 
 import AuthRouter from "./routes/auth.js";
 
-
 config();
 
 const app = express();
 const port = process.env.PORT || 9090;
 const uri = process.env.MONGO_URI || null;
 
-
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1", routes);
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Root Page" });
+});
+
+app.use("/api/v1", AuthRouter);
 
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
@@ -39,12 +44,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("A user disconnected");
   });
-
-app.use(express.json());
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Root Page" });
 });
-app.use('/api/v1',AuthRouter);
 
 server.listen(port, async () => {
   try {
