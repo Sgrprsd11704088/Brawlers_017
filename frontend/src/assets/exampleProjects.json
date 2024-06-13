@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "60f7c2d5f73c2a4c3a5b9b0a",
+    "title": "Project A",
+    "description": "This is a description for Project A.",
+    "goalAmount": 1000,
+    "currentAmount": 500
+  },
+  {
+    "_id": "60f7c2d5f73c2a4c3a5b9b0b",
+    "title": "Project B",
+    "description": "This is a description for Project B.",
+    "goalAmount": 2000,
+    "currentAmount": 1500
+  },
+  {
+    "_id": "60f7c2d5f73c2a4c3a5b9b0c",
+    "title": "Project C",
+    "description": "This is a description for Project C.",
+    "goalAmount": 500,
+    "currentAmount": 250
+  }
+]
