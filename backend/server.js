@@ -1,20 +1,19 @@
 import express from 'express';
-import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
-
 import connectDB from './config/db.js';
 import userRoutes from './routes/users.js';
 import authRoutes from './routes/auth.js';
 import projectRoutes from './routes/projects.js';
 import donationRoutes from './routes/donations.js';
+import http from "http";
+import { Server as SocketIOServer } from "socket.io";
+import cors from "cors";
+import routes from "./routes/basicRoutes.js";
+import AuthRouter from "./routes/auth.js";
 
 // Load environment variables from .env file
 dotenv.config();
-
-// Connect Database
-connectDB();
-
 const app = express();
 
 // Init Middleware
@@ -41,8 +40,36 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/donations', donationRoutes);
 
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.use("/api/v1", routes);
+app.use("/api/v1", AuthRouter);
+
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("message", (data) => {
+    console.log("Message received: ", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+});
+
+server.listen(port, async () => {
+  try {
+    await connectDB(uri);
+    console.log(`Connection to DB Established`);
+    console.log(`Server is listening on http://localhost:${port}/`);
+  } catch (error) {
+    console.log(error);
+  }
 });

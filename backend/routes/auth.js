@@ -1,109 +1,85 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { check, validationResult } = require('express-validator');
-const User = require('../models/User');
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+import userModel from "../models/userModel.js";
+import authenticateToken from "../middleware/authMiddleware.js";
+import authorizeRole from "../middleware/authRole.js";
 
-// @route    POST api/auth/register
-// @desc     Register user
-router.post('/register', [
-  check('name', 'Name is required').not().isEmpty(),
-  check('email', 'Please include a valid email').isEmail(),
-  check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
+dotenv.config();
+const AuthRouter = express.Router();
 
-  const { name, email, password } = req.body;
+let refreshTokens = [];
 
+AuthRouter.post("/register", async (req, res) => {
   try {
-    let user = await User.findOne({ email });
+    const { userName, email, password } = req.body;
+    const existingUser = await userModel.findOne({ email });
+    if (existingUser) return res.status(400).send("User already exists");
 
-    if (user) {
-      return res.status(400).json({ msg: 'User already exists' });
-    }
-
-    user = new User({
-      name,
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new userModel({
+      userName,
       email,
-      password
+      password: hashedPassword,
+      role: "user",
     });
-
-    const salt = await bcrypt.genSalt(10);
-
-    user.password = await bcrypt.hash(password, salt);
-
     await user.save();
-
-    const payload = {
-      user: {
-        id: user.id
-      }
-    };
-
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
+    res.status(201).send("User registered");
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+    console.log(err);
   }
 });
 
-// @route    POST api/auth/login
-// @desc     Authenticate user & get token
-router.post('/login', [
-  check('email', 'Please include a valid email').isEmail(),
-  check('password', 'Password is required').exists()
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
+AuthRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  const user = await userModel.findOne({ email });
+  if (!user) return res.status(400).send("Cannot find user");
 
-  try {
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(400).json({ msg: 'Invalid Credentials' });
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid Credentials' });
-    }
-
-    const payload = {
-      user: {
-        id: user.id
-      }
-    };
-
-    jwt.sign(
-      payload,
-      process.env.JWT_SECRET,
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
+  if (await bcrypt.compare(password, user.password)) {
+    const payload = { email: user.email, role: user.role };
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: process.env.ACCESS_TOKEN_LIFE,
+    });
+    const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: process.env.REFRESH_TOKEN_LIFE,
+    });
+    refreshTokens.push(refreshToken);
+    res.json({ accessToken, refreshToken });
+  } else {
+    res.send("Password incorrect");
   }
 });
 
-module.exports = router;
+AuthRouter.post("/token", (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) return res.sendStatus(401);
+  if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    const accessToken = jwt.sign(
+      { email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.ACCESS_TOKEN_LIFE }
+    );
+    res.json({ accessToken });
+  });
+});
+
+AuthRouter.post("/logout", (req, res) => {
+  const { refreshToken } = req.body;
+  refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
+  res.sendStatus(204);
+});
+
+AuthRouter.get(
+  "/admin",
+  authenticateToken,
+  authorizeRole(["admin"]),
+  (req, res) => {
+    res.send("Admin content");
+  }
+);
+
+export default AuthRouter;
