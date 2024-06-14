@@ -1,29 +1,47 @@
-import express from "express";
-import { config } from "dotenv";
-import connectDB from "./config/db.js";
-
+import express from 'express';
+import dotenv from 'dotenv';
+import path from 'path';
+import connectDB from './config/db.js';
+import userRoutes from './routes/users.js';
+import authRoutes from './routes/auth.js';
+import projectRoutes from './routes/projects.js';
+import donationRoutes from './routes/donations.js';
 import http from "http";
 import { Server as SocketIOServer } from "socket.io";
 import cors from "cors";
 import routes from "./routes/basicRoutes.js";
-
 import AuthRouter from "./routes/auth.js";
 
-config();
-
+// Load environment variables from .env file
+dotenv.config();
 const app = express();
-const port = process.env.PORT || 9090;
-const uri = process.env.MONGO_URI || null;
 
+// Init Middleware
+app.use(express.json());
 app.use(cors());
-app.use(express.json());
-app.use("/api/v1", routes);
-app.use(express.json());
+app.use('/uploads', express.static(path.join(path.resolve(), '/uploads')));
 
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Root Page" });
+// Root Route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: "Welcome to the CrowdFunding API",
+    endpoints: {
+      users: "/api/users",
+      auth: "/api/auth",
+      projects: "/api/projects",
+      donations: "/api/donations"
+    }
+  });
 });
 
+// Define Routes
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/donations', donationRoutes);
+
+
+app.use("/api/v1", routes);
 app.use("/api/v1", AuthRouter);
 
 const server = http.createServer(app);
