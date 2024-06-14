@@ -9,12 +9,12 @@ Donorrouter.post('/create', async (req, res) => {
   const { amount, donor, name , message } = req.body;
 
   // Validate the request body
-  if (!amount || !donor || !name ) {
+  if (!amount || !donor || !name || !message) {
     return res.status(400).json({ message: 'Please include all required fields: amount, donor, and name' });
   }
 
   try {
-    const newDonation = new Donation({ amount, donor, name });
+    const newDonation = new Donation({ amount, donor, name, message });
     const savedDonation = await newDonation.save();
     res.status(201).json(savedDonation);
   } catch (err) {
