@@ -10,7 +10,12 @@ import { Server as SocketIOServer } from "socket.io";
 import cors from "cors";
 import routes from "./routes/basicRoutes.js";
 
+
 config(); // Load environment variables from .env file
+
+import AuthRouter from "./routes/auth.js";
+import Donorrouter from "./routes/DonorRoutes.js";
+
 
 
 const app = express();
@@ -53,6 +58,7 @@ app.use("/api/projects", projectRoutes);
 
 app.use("/api/v1", routes);
 app.use("/api/v1", AuthRouter);
+app.use('/api/donations', Donorrouter );
 
 // Socket.io server setup
 const server = http.createServer(app);
