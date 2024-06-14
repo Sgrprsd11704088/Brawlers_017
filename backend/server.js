@@ -13,7 +13,6 @@ import routes from "./routes/basicRoutes.js";
 
 config(); // Load environment variables from .env file
 
-import AuthRouter from "./routes/auth.js";
 import Donorrouter from "./routes/DonorRoutes.js";
 
 
