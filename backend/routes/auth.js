@@ -15,17 +15,17 @@ AuthRouter.post("/register", async (req, res) => {
   try {
     const { userName, email, password } = req.body;
     const existingUser = await userModel.findOne({ email });
-    if (existingUser) return res.status(400).send("User already exists");
+    if (existingUser) return res.status(400).json("User already exists");
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new userModel({
       userName,
       email,
       password: hashedPassword,
-      role: "user",
+      role: "student",
     });
     await user.save();
-    res.status(201).send("User registered");
+    res.status(201).json("User registered");
   } catch (err) {
     console.log(err);
   }
@@ -34,7 +34,7 @@ AuthRouter.post("/register", async (req, res) => {
 AuthRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await userModel.findOne({ email });
-  if (!user) return res.status(400).send("Cannot find user");
+  if (!user) return res.status(400).json("Cannot find user");
 
   if (await bcrypt.compare(password, user.password)) {
     const payload = { email: user.email, role: user.role };
@@ -47,7 +47,7 @@ AuthRouter.post("/login", async (req, res) => {
     refreshTokens.push(refreshToken);
     res.json({ accessToken, refreshToken });
   } else {
-    res.send("Password incorrect");
+    res.json("Password incorrect");
   }
 });
 
@@ -78,7 +78,7 @@ AuthRouter.get(
   authenticateToken,
   authorizeRole(["admin"]),
   (req, res) => {
-    res.send("Admin content");
+    res.json("Admin content");
   }
 );
 
