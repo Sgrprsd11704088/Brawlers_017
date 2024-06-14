@@ -24,10 +24,6 @@ app.use("/api/v1", basicRoutes);
 app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1", AuthRouter);
 
-// Root route
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Root Page" });
-});
 // Init Middleware
 app.use(express.json());
 app.use(cors());

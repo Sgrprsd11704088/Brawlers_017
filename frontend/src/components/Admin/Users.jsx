@@ -1,12 +1,12 @@
 import CustomTable from "./components/CustomTable";
 
-const Users = () => {
+const Users = ({ columns, data }) => {
   return (
     <>
       <h1>Students</h1>
 
       <div className="mt-3">
-        <CustomTable />
+        <CustomTable columns={columns} data={data} />
       </div>
     </>
   );

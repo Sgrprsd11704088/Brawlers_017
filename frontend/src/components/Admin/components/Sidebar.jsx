@@ -18,11 +18,20 @@ const HomeSidebar = () => {
             >
               <li className="nav-item">
                 <Link
-                  to="/admin/dashboard/users"
+                  to="/admin/dashboard/students"
                   className="nav-link align-middle px-0"
                 >
                   <i className="fs-4 bi-house" />
-                  <span className="ms-1 d-none d-sm-inline">User</span>
+                  <span className="ms-1 d-none d-sm-inline">Students</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/admin/dashboard/projects"
+                  className="nav-link px-0 align-middle"
+                >
+                  <i className="fs-4 bi-speedometer2" />
+                  <span className="ms-1 d-none d-sm-inline">Projects</span>
                 </Link>
               </li>
               <li>
