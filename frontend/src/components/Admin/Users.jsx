@@ -38,36 +38,14 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: 1,
-    name: "John Brown",
-    tags: ["Student"],
-  },
-  {
-    key: 2,
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    description: "Project IDS",
-    tags: ["donor"],
-  },
-  {
-    key: 4,
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    description: "Project IDS",
-    tags: ["admin"],
-  },
-];
-
 const Users = () => {
   const [data, setData] = useState([]);
 
   const getData = async () => {
     try {
-      let res = await axios.get("http://localhost:8080/api/v1/admin");
+      let res = await axios.get(
+        "https://brawlers-017.onrender.com/api/v1/admin"
+      );
       let { data } = res;
 
       const transformedData = data.map((project) => ({

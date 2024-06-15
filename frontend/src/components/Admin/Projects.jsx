@@ -32,7 +32,9 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      let res = await axios.get("http://localhost:8080/api/projects");
+      let res = await axios.get(
+        "https://brawlers-017.onrender.com/api/projects"
+      );
       const { data } = res;
 
       const transformedData = data.map((project) => ({
@@ -54,7 +56,9 @@ const Projects = () => {
     <>
       <div className="d-flex justify-content-between align-items-center">
         <h1>Projects</h1>
-        <Button><Link to={'/admin/dashboard/newProject'}>Create New Project</Link></Button>
+        <Button>
+          <Link to={"/admin/dashboard/newProject"}>Create New Project</Link>
+        </Button>
       </div>
       <div className="mt-3">
         <CustomTable columns={columns} data={data} />
