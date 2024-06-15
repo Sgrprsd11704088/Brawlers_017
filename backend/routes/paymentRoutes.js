@@ -1,5 +1,5 @@
 import express from 'express';
-import { handlePayment, verifyOtp } from '../controllers/paymentController.js';
+import { handlePayment, verifyOtp } from '../controller/paymentController.js';
 
 const paymentRoutes = express.Router();
 

@@ -6,12 +6,15 @@ import CreateProject from "./components/CreateProject";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Admin/Home.jsx";
 import Login from "./components/Admin/Login.jsx";
+import PaymentForm from "./components/PaymentForm.jsx";
 
 function App() {
   return (
     <>
+    
       <Auth />
       <h1>Home Page</h1>
+      <PaymentForm></PaymentForm>
       <CreateProject />
       <ProjectList projects={projects} />
 

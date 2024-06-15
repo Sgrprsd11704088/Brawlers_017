@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = 'http://localhost:8080/api';
 
 export const sendPaymentDetails = (email, paymentMethod, amount) => {
   return axios.post(`${API_URL}/pay`, { email, paymentMethod, amount });
