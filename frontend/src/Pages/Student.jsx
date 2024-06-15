@@ -6,8 +6,6 @@ import projects from "../assets/exampleProjects.json";
 const Student = () => {
   return (
     <>
-      <Auth />
-      <h1>Home Page</h1>
       <CreateProject />
       <ProjectList projects={projects} />
     </>
