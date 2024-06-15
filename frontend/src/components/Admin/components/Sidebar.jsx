@@ -18,11 +18,11 @@ const HomeSidebar = () => {
             >
               <li className="nav-item">
                 <Link
-                  to="/admin/dashboard/students"
+                  to="/admin/dashboard/users"
                   className="nav-link align-middle px-0"
                 >
                   <i className="fs-4 bi-house" />
-                  <span className="ms-1 d-none d-sm-inline">Students</span>
+                  <span className="ms-1 d-none d-sm-inline">Users</span>
                 </Link>
               </li>
               <li>
@@ -32,15 +32,6 @@ const HomeSidebar = () => {
                 >
                   <i className="fs-4 bi-speedometer2" />
                   <span className="ms-1 d-none d-sm-inline">Projects</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/admin/dashboard/doners"
-                  className="nav-link px-0 align-middle"
-                >
-                  <i className="fs-4 bi-speedometer2" />
-                  <span className="ms-1 d-none d-sm-inline">Doners</span>
                 </Link>
               </li>
               <li>

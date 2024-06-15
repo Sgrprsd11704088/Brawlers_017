@@ -75,10 +75,11 @@ AuthRouter.post("/logout", (req, res) => {
 
 AuthRouter.get(
   "/admin",
-  authenticateToken,
-  authorizeRole(["admin"]),
-  (req, res) => {
-    res.json("Admin content");
+  // authenticateToken,
+  // authorizeRole(["admin"]),
+  async (req, res) => {
+    const userData = await userModel.find();
+    res.send(userData);
   }
 );
 

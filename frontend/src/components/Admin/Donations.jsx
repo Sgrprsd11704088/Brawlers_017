@@ -9,7 +9,7 @@ const columns = [
     key: "donor",
   },
   {
-    title: "Name",
+    title: "Company Name",
     dataIndex: "name",
     key: "name",
   },
@@ -36,7 +36,9 @@ const Donations = () => {
 
   const fetchProjects = async () => {
     try {
-      let res = await axios.get("http://localhost:8080/api/donations");
+      let res = await axios.get(
+        "https://brawlers-017.onrender.com/api/donations"
+      );
       const { data } = res;
 
       const transformedData = data.map((dono) => ({
