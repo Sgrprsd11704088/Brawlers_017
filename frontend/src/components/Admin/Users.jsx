@@ -3,6 +3,7 @@ import CustomTable from "./components/CustomTable";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Loading from "./components/Loading";
 
 const columns = [
   {
@@ -38,36 +39,16 @@ const columns = [
   },
 ];
 
-const data = [
-  {
-    key: 1,
-    name: "John Brown",
-    tags: ["Student"],
-  },
-  {
-    key: 2,
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-    description: "Project IDS",
-    tags: ["donor"],
-  },
-  {
-    key: 4,
-    name: "Joe Black",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-    description: "Project IDS",
-    tags: ["admin"],
-  },
-];
-
 const Users = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getData = async () => {
+    setLoading(true);
     try {
-      let res = await axios.get("http://localhost:8080/api/v1/admin");
+      let res = await axios.get(
+        "https://brawlers-017.onrender.com/api/v1/admin"
+      );
       let { data } = res;
 
       const transformedData = data.map((project) => ({
@@ -76,8 +57,8 @@ const Users = () => {
         email: project.email,
       }));
 
-      console.log(transformedData);
       setData(transformedData);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -96,9 +77,16 @@ const Users = () => {
         </Button>
       </div>
 
-      <div className="mt-3">
-        <CustomTable columns={columns} data={data} />
-      </div>
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center">
+          <Loading />
+        </div>
+      )}
+      {!loading && (
+        <div className="mt-3">
+          <CustomTable columns={columns} data={data} />
+        </div>
+      )}
     </>
   );
 };

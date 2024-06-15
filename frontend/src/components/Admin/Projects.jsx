@@ -3,6 +3,7 @@ import CustomTable from "./components/CustomTable";
 import axios from "axios";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
+import Loading from "./components/Loading";
 
 const columns = [
   {
@@ -29,10 +30,14 @@ const columns = [
 
 const Projects = () => {
   const [data, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchProjects = async () => {
+    setLoading(true);
     try {
-      let res = await axios.get("http://localhost:8080/api/projects");
+      let res = await axios.get(
+        "https://brawlers-017.onrender.com/api/projects"
+      );
       const { data } = res;
 
       const transformedData = data.map((project) => ({
@@ -41,6 +46,7 @@ const Projects = () => {
       }));
 
       setProjects(transformedData);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -54,11 +60,21 @@ const Projects = () => {
     <>
       <div className="d-flex justify-content-between align-items-center">
         <h1>Projects</h1>
-        <Button><Link to={'/admin/dashboard/newProject'}>Create New Project</Link></Button>
+        <Button>
+          <Link to={"/admin/dashboard/newProject"}>Create New Project</Link>
+        </Button>
       </div>
-      <div className="mt-3">
-        <CustomTable columns={columns} data={data} />
-      </div>
+
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center">
+          <Loading />
+        </div>
+      )}
+      {!loading && (
+        <div className="mt-3">
+          <CustomTable columns={columns} data={data} expand={true} />
+        </div>
+      )}
     </>
   );
 };

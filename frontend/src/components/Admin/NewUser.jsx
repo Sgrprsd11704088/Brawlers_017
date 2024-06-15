@@ -12,11 +12,14 @@ const NewUser = () => {
     const userDetails = { userName, email, password };
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userDetails),
-      });
+      const response = await fetch(
+        "https://brawlers-017.onrender.com/api/v1/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(userDetails),
+        }
+      );
       console.log(userDetails);
       const data = await response.json();
 

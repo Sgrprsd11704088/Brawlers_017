@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CustomTable from "./components/CustomTable";
 import axios from "axios";
+import Loading from "./components/Loading";
 
 const columns = [
   {
@@ -27,6 +28,7 @@ const columns = [
 
 const Donations = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const dateAndTime = (isoDate) => {
     const date = new Date(isoDate);
@@ -35,6 +37,7 @@ const Donations = () => {
   };
 
   const fetchProjects = async () => {
+    setLoading(true);
     try {
       let res = await axios.get(
         "https://brawlers-017.onrender.com/api/donations"
@@ -48,6 +51,7 @@ const Donations = () => {
       }));
 
       setData(transformedData);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -61,9 +65,16 @@ const Donations = () => {
     <>
       <h1>Donations</h1>
 
-      <div className="mt-3">
-        <CustomTable columns={columns} data={data} />
-      </div>
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center">
+          <Loading />
+        </div>
+      )}
+      {!loading && (
+        <div className="mt-3">
+          <CustomTable columns={columns} data={data} />
+        </div>
+      )}
     </>
   );
 };
