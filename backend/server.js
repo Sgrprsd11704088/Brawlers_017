@@ -27,10 +27,6 @@ app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1", AuthRouter);
 app.use('/api', paymentRoutes);
 
-// Root route
-// app.get("/", (req, res) => {
-//   res.status(200).json({ message: "Root Page" });
-// });
 // Init Middleware
 // app.use(express.json());
 // app.use(cors());

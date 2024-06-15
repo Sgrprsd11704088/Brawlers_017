@@ -1,8 +1,12 @@
-const Home = () => {
+import Card from "./components/Card";
+
+const Home = ({ diffContent }) => {
   return (
-    <>
-      <h1>Admin HomePage</h1>
-    </>
+    <div className="d-flex flex-wrap gap-5">
+      {diffContent.map((cont) => {
+        return <Card key={cont.id} title={cont.title} amount={cont.amount} />;
+      })}
+    </div>
   );
 };
 
