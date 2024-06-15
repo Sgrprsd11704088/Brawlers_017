@@ -3,6 +3,7 @@ import CustomTable from "./components/CustomTable";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Loading from "./components/Loading";
 
 const columns = [
   {
@@ -40,8 +41,10 @@ const columns = [
 
 const Users = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const getData = async () => {
+    setLoading(true);
     try {
       let res = await axios.get(
         "https://brawlers-017.onrender.com/api/v1/admin"
@@ -54,8 +57,8 @@ const Users = () => {
         email: project.email,
       }));
 
-      console.log(transformedData);
       setData(transformedData);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -74,9 +77,16 @@ const Users = () => {
         </Button>
       </div>
 
-      <div className="mt-3">
-        <CustomTable columns={columns} data={data} />
-      </div>
+      {loading && (
+        <div className="d-flex justify-content-center align-items-center">
+          <Loading />
+        </div>
+      )}
+      {!loading && (
+        <div className="mt-3">
+          <CustomTable columns={columns} data={data} />
+        </div>
+      )}
     </>
   );
 };
