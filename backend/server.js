@@ -1,3 +1,4 @@
+
 import express from "express";
 import { config } from "dotenv";
 import connectDB from "./config/db.js";
@@ -14,6 +15,7 @@ import paymentRoutes from './routes/paymentRoutes.js'
 config();
 const app = express();
 const port = process.env.PORT || 9090;
+
 const uri = process.env.MONGO_URI || null;
 
 app.use(cors());
@@ -26,13 +28,13 @@ app.use("/api/v1", AuthRouter);
 app.use('/api', paymentRoutes);
 
 // Root route
-app.get("/", (req, res) => {
-  res.status(200).json({ message: "Root Page" });
-});
+// app.get("/", (req, res) => {
+//   res.status(200).json({ message: "Root Page" });
+// });
 // Init Middleware
-app.use(express.json());
-app.use(cors());
-app.use("/uploads", express.static(path.join(path.resolve(), "/uploads")));
+// app.use(express.json());
+// app.use(cors());
+// app.use("/uploads", express.static(path.join(path.resolve(), "/uploads")));
 
 // Root Route
 app.get("/", (req, res) => {
@@ -48,10 +50,12 @@ app.get("/", (req, res) => {
 });
 
 // Define Routes
+
 app.use("/api/projects", projectRoutes);
 app.use("/api/v1", routes);
 app.use("/api/v1", AuthRouter);
 app.use("/api/donations", Donorrouter);
+
 
 // Socket.io server setup
 const server = http.createServer(app);
