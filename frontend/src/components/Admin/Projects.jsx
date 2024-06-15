@@ -61,7 +61,7 @@ const Projects = () => {
         </Button>
       </div>
       <div className="mt-3">
-        <CustomTable columns={columns} data={data} />
+        <CustomTable columns={columns} data={data} expand={true} />
       </div>
     </>
   );
