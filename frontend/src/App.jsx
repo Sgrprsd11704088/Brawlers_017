@@ -11,14 +11,16 @@ import Login from "./components/Admin/Login";
 import Donar from "./Pages/Donar";
 
 function App() {
-  const [roles, setRoles] = useState("student");
+  const [roles, setRoles] = useState("admin");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
       <Routes>
         {roles === "student" && <Route path="/" element={<Student />} />}
+
         {roles === "donor" && <Route path="/" element={<Donar />} />}
+        
         {roles === "admin" && isLoggedIn ? (
           <Route path="admin/*" element={<Sidebar />}>
             <Route path="dashboard/*" element={<Admin />} />
