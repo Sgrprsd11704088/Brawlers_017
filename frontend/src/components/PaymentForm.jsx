@@ -1,19 +1,22 @@
-import  { useState } from 'react';
-import { sendPaymentDetails, verifyOtp } from '../services/paymentService';
+import { useState } from 'react';
+import { sendPaymentDetails, verifyOtp } from '../services/paymentService.js';
 
 const PaymentForm = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
   const [amount, setAmount] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
   const [message, setMessage] = useState('');
+  const [transactionId, setTransactionId] = useState('');
 
   const handlePayment = async () => {
     try {
-      const response = await sendPaymentDetails(email, paymentMethod, amount);
+      const response = await sendPaymentDetails({ username, email, paymentMethod, amount });
       setOtpSent(true);
-      setMessage(response.data);
+      setTransactionId(response.data.transactionId);
+      setMessage(response.data.message);
     } catch (error) {
       setMessage('Error sending OTP');
     }
@@ -21,8 +24,8 @@ const PaymentForm = () => {
 
   const handleVerifyOtp = async () => {
     try {
-      const response = await verifyOtp(email, otp);
-      setMessage(response.data);
+      const response = await verifyOtp({ email, otp, transactionId });
+      setMessage(response.data.message);
     } catch (error) {
       setMessage('Invalid OTP');
     }
@@ -33,6 +36,12 @@ const PaymentForm = () => {
       <h1>Payment Gateway</h1>
       {!otpSent ? (
         <div>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
           <input
             type="email"
             placeholder="Email"
