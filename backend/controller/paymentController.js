@@ -30,3 +30,4 @@ const verifyOtp = (req, res) => {
 };
 
 export { handlePayment, verifyOtp };
+

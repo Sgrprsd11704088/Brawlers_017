@@ -11,15 +11,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendOtpEmail = (email, otp) => {
-  const mailOptions = {
+const sendOtpEmail = async (email, otp) => {
+  const mailOptions = await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: email,
     subject: 'Your OTP for Payment Verification',
     text: `Your OTP is ${otp}`,
-  };
+  });
 
-  return transporter.sendMail(mailOptions);
-};
+ 
+}
+sendOtpEmail().catch(console.error);
 
 export { sendOtpEmail };
