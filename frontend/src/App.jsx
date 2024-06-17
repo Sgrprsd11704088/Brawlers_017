@@ -11,6 +11,7 @@ import PaymentForm from "./components/PaymentForm.jsx";
 import Sidebar from "./components/Admin/components/Sidebar";
 
 import Donar from "./Pages/Donar";
+import Navbar from "./components/Navbar.jsx";
 
 
   
@@ -20,7 +21,7 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <>
-
+<Navbar></Navbar>
     
       <Auth />
       <h1>Home Page</h1>
