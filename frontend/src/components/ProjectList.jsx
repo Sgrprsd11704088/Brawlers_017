@@ -1,3 +1,8 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import axios from 'axios';
+import Progress from '../components/Progress';
+import './ProjectList.css';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Progress from "./Progress";
@@ -7,6 +12,7 @@ const ProjectList = ({ color, content }) => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     // Fetch projects from backend when component mounts
@@ -24,6 +30,10 @@ const ProjectList = ({ color, content }) => {
     }
   };
 
+  const handleDonateClick = (projectId) => {
+    navigate(`/donor/create-donation`, { state: { projectId } });
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -39,6 +49,7 @@ const ProjectList = ({ color, content }) => {
   return (
     <div className="project-list">
       {projects.map((project) => (
+
         <div
           key={project._id}
           className="project-card"
@@ -53,6 +64,7 @@ const ProjectList = ({ color, content }) => {
           <p>{project.description}</p>
           <p>Goal Amount: {project.goalAmount}</p>
           <p>Current Amount: {project.currentAmount}</p>
+
           {content && (
             <>
               <Progress projectId={project._id} />

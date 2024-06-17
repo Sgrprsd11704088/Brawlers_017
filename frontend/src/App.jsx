@@ -11,6 +11,7 @@ import HomePage from "./components/Home.jsx";
 import Logins from "./components/Login/logins.jsx";
 
 
+
 const App = () => {
   const [roles, setRoles] = useState("student");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -20,8 +21,6 @@ const App = () => {
 <Navbar></Navbar>
 
       <PaymentForm></PaymentForm>
-      {/* <CreateProject />
-      <ProjectList projects={projects} /> */}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
