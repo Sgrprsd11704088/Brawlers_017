@@ -1,81 +1,80 @@
-import React, { useState, useContext } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import AuthContext from '../context/AuthContext';
 
 const CreateProject = () => {
-  const authContext = useContext(AuthContext);
-  const { user } = authContext;
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [goalAmount, setGoalAmount] = useState('');
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
-  const [project, setProject] = useState({
-    title: '',
-    description: '',
-    category: '',
-    goalAmount: '',
-    image: null // Store the selected image file
-  });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const { title, description, category, goalAmount, image } = project;
-
-  const onChange = e => {
-    if (e.target.name === 'image') {
-      setProject({ ...project, image: e.target.files[0] });
-    } else {
-      setProject({ ...project, [e.target.name]: e.target.value });
-    }
-  };
-
-  const onSubmit = async e => {
-    e.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('category', category);
     formData.append('goalAmount', goalAmount);
-    formData.append('image', image);
+    formData.append('image', file);
 
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'x-auth-token': localStorage.getItem('token')
-      }
-    };
-    
     try {
-      const res = await axios.post('/api/projects', formData, config);
-      console.log(res.data);
+      const token = localStorage.getItem('token');
+      const response = await axios.post(
+        'http://localhost:8080/api/projects',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log('Project created:', response.data);
+      navigate('/projects');
     } catch (err) {
-      console.error(err.response.data);
+      console.error('Error creating project:', err);
     }
   };
 
   return (
-    <div className="container">
-      <h2>Create New Project</h2>
-      <form onSubmit={onSubmit} className="p-4 shadow-sm mx-5">
-        <div className="form-group mt-3">
-          <label>Title</label>
-          <input type="text" className="form-control" name="title" value={title} onChange={onChange} placeholder="Enter project title" required />
-        </div>
-        <div className="form-group mt-3">
-          <label>Description</label>
-          <textarea className="form-control" name="description" value={description} onChange={onChange} placeholder="Enter project description" required></textarea>
-        </div>
-        <div className="form-group mt-3">
-          <label>Category</label>
-          <input type="text" className="form-control" name="category" value={category} onChange={onChange} placeholder="Enter project category" required />
-        </div>
-        <div className="form-group mt-3">
-          <label>Goal Amount</label>
-          <input type="number" className="form-control" name="goalAmount" value={goalAmount} onChange={onChange} placeholder="Enter goal amount" required />
-        </div>
-        <div className="form-group mt-3">
-          <label>Image</label>
-          <input type="file" className="form-control" name="image" onChange={onChange} required />
-        </div>
-        <button type="submit" className="btn btn-primary mt-3">Create Project</button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Project Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <textarea
+        placeholder="Project Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        required
+      ></textarea>
+      <input
+        type="text"
+        placeholder="Category"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+        required
+      />
+      <input
+        type="number"
+        placeholder="Goal Amount"
+        value={goalAmount}
+        onChange={(e) => setGoalAmount(e.target.value)}
+        required
+      />
+      <input
+        type="file"
+        onChange={(e) => setFile(e.target.files[0])}
+        required
+      />
+      <button type="submit">Create Project</button>
+    </form>
   );
 };
 
