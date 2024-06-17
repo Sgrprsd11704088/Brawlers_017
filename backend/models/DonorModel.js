@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 
 const DonationSchema = new mongoose.Schema({
   amount: {
@@ -19,7 +18,8 @@ const DonationSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
-  }
+  },
+  user: [{ type: Types.ObjectId, ref: 'Project' }],
 });
 
 const Donation = mongoose.model('Donation', DonationSchema);
