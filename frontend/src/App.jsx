@@ -6,8 +6,10 @@ import { Route, Routes } from "react-router-dom";
 import PaymentForm from "./components/PaymentForm.jsx";
 import Sidebar from "./components/Admin/components/Sidebar";
 import Donar from "./Pages/Donar";
+import Navbar from "./components/Navbar.jsx";
 import HomePage from "./components/Home.jsx";
 import Logins from "./components/Login/logins.jsx";
+
 
 const App = () => {
   const [roles, setRoles] = useState("student");
@@ -15,8 +17,8 @@ const App = () => {
 
   return (
     <>
-      {/* <Auth />
-      <h1>Home Page</h1> */}
+<Navbar></Navbar>
+
       <PaymentForm></PaymentForm>
       {/* <CreateProject />
       <ProjectList projects={projects} /> */}
