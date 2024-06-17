@@ -1,24 +1,18 @@
-
-import React from 'react';
-import { Route , Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 import CreateDonation from "../components/Donations/CreateDonation";
 import DonationList from "../components/Donations/DonationList";
-import Footer from '../components/Footer';
-
-
+import Footer from "../components/Footer";
 
 const Donar = () => {
   return (
     <>
-   <Routes>
+      <Routes>
         <Route path="create-donation" element={<CreateDonation />} />
         <Route path="donations" element={<DonationList />} />
-     
-   </Routes>
-
-      {<Footer /> }
+      </Routes>
+      <Footer />
     </>
   );
-}
+};
 
 export default Donar;
