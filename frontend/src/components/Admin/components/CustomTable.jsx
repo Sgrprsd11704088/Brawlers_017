@@ -4,6 +4,7 @@ const CustomTable = ({ columns, data, expand }) => {
   return (
     <Table
       columns={columns}
+      pagination={{ pageSize: 6 }}
       expandable={
         expand && {
           expandedRowRender: (record) => (
