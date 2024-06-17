@@ -1,3 +1,4 @@
+import mongoose, { Types } from 'mongoose';
 
 const DonationSchema = new mongoose.Schema({
   amount: {
