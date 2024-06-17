@@ -16,8 +16,6 @@ const Donar = () => {
         <Route path="projects" element={<ProjectList projects={Projects} />} />
       </Routes>
       <Footer />
-      </Routes>
-      <Footer />
     </>
   );
 };

@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import axios from 'axios';
-import Progress from '../components/Progress';
 import './ProjectList.css';
-import { useState, useEffect } from "react";
-import axios from "axios";
 import Progress from "./Progress";
 import "./ProjectList.css";
 

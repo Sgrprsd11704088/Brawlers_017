@@ -10,16 +10,13 @@ import Navbar from "./components/Navbar.jsx";
 import HomePage from "./components/Home.jsx";
 import Logins from "./components/Login/logins.jsx";
 
-
-
 const App = () => {
   const [roles, setRoles] = useState("student");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
-<Navbar></Navbar>
-
+      <Navbar></Navbar>
       <PaymentForm></PaymentForm>
 
       <Routes>
