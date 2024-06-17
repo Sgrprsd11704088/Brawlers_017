@@ -64,7 +64,7 @@ const CreateProject = () => {
   return (
     <div className="container">
       <h2>Create New Project</h2>
-      <form onSubmit={onSubmit} className="p-4 shadow-sm mx-5">
+      <form onSubmit={onSubmit} className="p-4 shadow-sm mx-5 bg-light rounded-2">
         {error && <div className="alert alert-danger">{error}</div>}
         {successMsg && <div className="alert alert-success">{successMsg}</div>} {/* Show success message */}
         <div className="form-group mt-3">

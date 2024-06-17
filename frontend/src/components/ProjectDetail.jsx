@@ -7,30 +7,38 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const ProjectDetail = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await axios.get(`/api/projects/${id}`);
+        const res = await axios.get(`/api/v1/projects/${id}`);  // Ensure correct API path
         setProject(res.data);
+        setLoading(false);
       } catch (err) {
-        console.error(err.response.data);
+        console.error(err.response ? err.response.data : err.message);
+        setLoading(false);
       }
     };
 
     fetchProject();
   }, [id]);
 
-  if (!project) return <div>Loading...</div>;
+  if (loading) {
+    return <div className="container mt-5"><h2>Loading...</h2></div>;
+  }
+
+  if (!project) {
+    return <div className="container mt-5"><h2>Project not found</h2></div>;
+  }
 
   return (
     <div className="container mt-5">
-      <h2>{project.title}</h2>
-      <img src={project.image} className="img-fluid" alt={project.title} />
+      <h2 className="mb-4">{project.title}</h2>
+      <img src={project.imageUrl} alt={project.title} className="img-fluid mb-4" />
       <p>{project.description}</p>
       <p><strong>Category:</strong> {project.category}</p>
-      <p><strong>Goal Amount:</strong> Php {project.goalAmount}</p>
-      <p><strong>Current Amount:</strong> Php {project.currentAmount}</p>
+      <p><strong>Goal Amount:</strong> ${project.goalAmount}</p>
     </div>
   );
 };

@@ -1,16 +1,23 @@
 import "./App.css";
-import Auth from "./components/login.jsx";
-import ProjectList from "./components/ProjectList";
-import projects from "./assets/exampleProjects.json";
-import CreateProject from "./components/CreateProject";
+import { useState } from "react";
+import Student from "./Pages/Student";
+import Admin from "./Pages/Admin";
 import { Route, Routes } from "react-router-dom";
 import Home from "./components/Admin/Home.jsx";
 import Login from "./components/Admin/Login.jsx";
 import PaymentForm from "./components/PaymentForm.jsx";
+import Sidebar from "./components/Admin/components/Sidebar";
+import Login from "./components/Admin/Login";
+import Donar from "./Pages/Donar";
+
 
 function App() {
+  const [roles, setRoles] = useState("admin");
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <>
+
     
       <Auth />
       <h1>Home Page</h1>
@@ -19,8 +26,17 @@ function App() {
       <ProjectList projects={projects} />
 
       <Routes>
-        <Route path="/admin" element={<Home />}></Route>
-        <Route path="/admin/login" element={<Login />}></Route>
+        {roles === "student" && <Route path="/" element={<Student />} />}
+
+        {roles === "donor" && <Route path="/" element={<Donar />} />}
+
+        {roles === "admin" && isLoggedIn ? (
+          <Route path="admin/*" element={<Sidebar />}>
+            <Route path="dashboard/*" element={<Admin />} />
+          </Route>
+        ) : (
+          <Route path="/" element={<Login />} />
+        )}
       </Routes>
     </>
   );

@@ -27,7 +27,8 @@ router.post('/', upload, async (req, res) => {
       description,
       category,
       goalAmount,
-      imageUrl: result.secure_url // Store secure URL from Cloudinary
+      imageUrl: result.secure_url,
+      userId:req.user.id
     });
 
     // Save project to database
