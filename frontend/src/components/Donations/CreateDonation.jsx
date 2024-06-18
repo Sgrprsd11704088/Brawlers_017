@@ -110,6 +110,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 import { 
   Modal, 
   ModalOverlay, 
@@ -195,7 +196,10 @@ const CreateDonation = ({ onDonationCreated }) => {
               placeholder="Message"
               required
             ></textarea>
+            <Link to='/Payment'>
             <button type="submit">Donate</button>
+            </Link>
+            
             {responseMessage && <p className="response-message">{responseMessage}</p>}
           </form>
         </div>
