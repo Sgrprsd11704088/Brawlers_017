@@ -31,10 +31,19 @@ const Logins = ({ role }) => {
   return (
     <>
       <div className="main1">
-
-        <h1 style={{ marginLeft: "100px", fontFamily: "monospace", color: "#55AD9B", position: "absolute", top: "100px", left: "380px", fontWeight: "bolder" }}>
+        <h1
+          style={{
+            marginLeft: "100px",
+            fontFamily: "monospace",
+            color: "#55AD9B",
+            position: "absolute",
+            top: "100px",
+            left: "380px",
+            fontWeight: "bolder",
+          }}
+        >
           Welcome to the Donor Portal
-
+        </h1>
         <h1
           style={{
             marginLeft: "100px",
@@ -47,7 +56,6 @@ const Logins = ({ role }) => {
           }}
         >
           Welcome to the Login Portal
-
         </h1>
         <br />
         <br />
@@ -110,9 +118,18 @@ const Logins = ({ role }) => {
           </div>
         </div>
 
-        <h4 style={{ position: "absolute", top: "1000px", left: "330px", fontWeight: "bolder" }}>
-          Like you, over a million people have donated to support 50 000+ nonprofit causes<br></br> around the world. Thank you for your help in making our world a better place.
-
+        <h4
+          style={{
+            position: "absolute",
+            top: "1000px",
+            left: "330px",
+            fontWeight: "bolder",
+          }}
+        >
+          Like you, over a million people have donated to support 50 000+
+          nonprofit causes<br></br> around the world. Thank you for your help in
+          making our world a better place.
+        </h4>
         <h4
           style={{
             position: "absolute",
@@ -124,7 +141,6 @@ const Logins = ({ role }) => {
           Like you, over a million people have donated to support 50 000+
           nonprofit causes<br></br> around the world. Thank you for your help in
           making our world a better place.
-
         </h4>
         <div style={{ marginTop: "130px" }}>
           <Footer />
