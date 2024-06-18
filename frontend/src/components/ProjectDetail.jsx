@@ -12,7 +12,7 @@ const ProjectDetail = () => {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await axios.get(`/api/v1/projects/${id}`);  // Ensure correct API path
+        const res = await axios.get(`projects/${id}`);  // Ensure correct API path
         setProject(res.data);
         setLoading(false);
       } catch (err) {
