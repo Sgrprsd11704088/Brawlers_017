@@ -4,6 +4,8 @@ import axios from "axios";
 import "./ProjectList.css";
 import Progress from "./Progress";
 import "./ProjectList.css";
+import CreateProject from "../components/CreateProject";
+
 
 const ProjectList = ({ color, content }) => {
   const [projects, setProjects] = useState([]);
@@ -18,7 +20,7 @@ const ProjectList = ({ color, content }) => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/v1/projects");
+      const response = await axios.get("https://brawlers-017.onrender.com/api/v1/projects");
       setProjects(response.data); // Assuming response.data is an array of projects
       setLoading(false);
     } catch (error) {
@@ -45,6 +47,10 @@ const ProjectList = ({ color, content }) => {
   }
 
   return (
+    <>
+   <div>
+    <CreateProject />
+   </div>
     <div className="project-list mt-3">
       {projects.map((project) => (
         <div
@@ -79,6 +85,7 @@ const ProjectList = ({ color, content }) => {
         </div>
       ))}
     </div>
+    </>
   );
 };
 

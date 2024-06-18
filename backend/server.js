@@ -11,7 +11,7 @@ import { Server as SocketIOServer } from "socket.io";
 import cors from "cors";
 import routes from "./routes/basicRoutes.js";
 import Donorrouter from "./routes/DonorRoutes.js";
-import paymentRoutes from './routes/paymentRoutes.js'
+
 config();
 const app = express();
 const port = process.env.PORT || 9090;
@@ -25,7 +25,7 @@ app.use(express.json());
 app.use("/api/v1", basicRoutes);
 app.use("/api/v1/projects", projectRoutes);
 app.use("/api/v1", AuthRouter);
-app.use('/api', paymentRoutes);
+
 
 // Init Middleware
 // app.use(express.json());

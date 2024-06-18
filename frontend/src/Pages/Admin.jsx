@@ -48,12 +48,12 @@ const Admin = () => {
     <div>
       <Routes>
         <Route path="/" element={<Home diffContent={diffContent} />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/donations" element={<Donations />} />
+        <Route path="users" element={<Users />} />
+        <Route path="projects" element={<Projects />} />
+        <Route path="donations" element={<Donations />} />
 
-        <Route path="/newProject" element={<NewProject />} />
-        <Route path="/newUser" element={<NewUser />} />
+        <Route path="newProject" element={<NewProject />} />
+        <Route path="newUser" element={<NewUser />} />
       </Routes>
     </div>
   );
