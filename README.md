@@ -58,6 +58,18 @@ Include screenshots as necessary.
 
 ## Credentials
 Provide user credentials for autheticated pages
+![image](https://github.com/Sgrprsd11704088/Brawlers_017/assets/102850092/6bf054cf-9638-4dad-a7c2-caffa9ab0aea)
+If the user is visited first time then he can click on signin
+![image](https://github.com/Sgrprsd11704088/Brawlers_017/assets/102850092/7ead7c1c-2068-4088-8439-a1be84d804e0)
+The admin can have access to all
+![image](https://github.com/Sgrprsd11704088/Brawlers_017/assets/102850092/e9d2f8d8-5712-4770-921a-4c04e15cd4bd)
+Donor can donated the amount for the projects
+![image](https://github.com/Sgrprsd11704088/Brawlers_017/assets/102850092/875aa70a-6bbb-4f82-8af7-871d6c8742e7)
+Students can create project as well see the other projects.
+![image](https://github.com/Sgrprsd11704088/Brawlers_017/assets/102850092/25be16af-6d7d-4867-8e5a-2bf5a1297f46)
+
+
+
 
 ## APIs Used
 If your application relies on external APIs, document them and include any necessary links or references.
