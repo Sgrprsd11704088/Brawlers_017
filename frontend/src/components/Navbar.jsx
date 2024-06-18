@@ -20,29 +20,20 @@ const Navbar = () => {
           </li>
           <li>
             <Link to="" className="nav-link px-2">
-              Pricing
-            </Link>
-          </li>
-          <li>
-            <Link to="" className="nav-link px-2">
               FAQs
             </Link>
           </li>
-          <li>
-            <Link to="" className="nav-link px-2">
-              About
-            </Link>
-          </li>
+         
         </ul>
 
         <div className="col-md-3 text-end">
           <Link to="/login" as={ChakraLink}>
-            <Button variant="outline" colorScheme="blue" mr={2}>
+            <Button style={{borderRadius:'10px', background:'#55ad9b',color:'#f1f8e8',padding:'10px',fontSize:'200',border:'none',fontWeight:'bold'}}  variant="outline" colorScheme="blue" mr={2}>
               Login
             </Button>
           </Link>
           <Link to="/signup" as={ChakraLink}>
-            <Button colorScheme="blue">Sign-up</Button>
+            <Button style={{marginLeft:'10px',background:'#55ad9b',color:'#f1f8e8',padding:'10px',fontSize:'200',border:'none',fontWeight:'bold',borderRadius:'10px'}} colorScheme="blue">Sign-up</Button>
           </Link>
         </div>
       </header>

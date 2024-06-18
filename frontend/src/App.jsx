@@ -12,12 +12,13 @@ import ProjectList from "./components/ProjectList.jsx";
 import Signup from "./components/Login/Signup.jsx";
 import PaymentFrom from './components/PaymentForm.jsx'
 const App = () => {
-  const [roles, setRoles] = useState("student");
+  const [roles, setRoles] = useState("admin");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <>
-      {roles === "student" || roles === "donor" ? <Navbar /> : ""}
+    <Navbar />
+      {/* {roles === "student" || roles === "donor" ? <Navbar /> : ""} */}
 
       <Routes>
         <Route path='/projects' element={<ProjectList content/>}/>

@@ -23,7 +23,7 @@ const CreateProject = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(
-        'http://localhost:8080/api/projects',
+        'https://brawlers-017.onrender.com//api/projects',
         formData,
         {
           headers: {

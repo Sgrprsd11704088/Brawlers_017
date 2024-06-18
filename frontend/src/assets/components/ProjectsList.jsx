@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import CreateProject from '../../components/CreateProject';
 
 const ProjectsList = () => {
   const [projects, setProjects] = useState([]);
@@ -21,6 +22,8 @@ const ProjectsList = () => {
   }, []);
 
   return (
+    <>
+    <CreateProject />
     <div className="container mt-5">
       <h2 className="mb-4">Projects List</h2>
       <div className="row">
@@ -40,6 +43,7 @@ const ProjectsList = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 
