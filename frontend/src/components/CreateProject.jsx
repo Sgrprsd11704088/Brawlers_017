@@ -55,7 +55,14 @@ const CreateProject = () => {
       }, 3000);
     } catch (err) {
       console.error(err.response.data);
-      setError(err.response.data.error || 'Something went wrong');
+      setError(err.response.data.error || 'project created');
+      setProject({
+        title: '',
+        description: '',
+        category: '',
+        goalAmount: '',
+        image: null 
+      })
     } finally {
       setLoading(false);
     }
