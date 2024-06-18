@@ -10,9 +10,7 @@ const Home = ({ diffContent }) => {
         })}
       </div>
 
-      <div>
-        <ProjectList color={"white"} />
-      </div>
+      <ProjectList color={"white"} />
     </>
   );
 };

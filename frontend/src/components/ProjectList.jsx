@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import axios from 'axios';
-import './ProjectList.css';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import axios from "axios";
+import "./ProjectList.css";
 import Progress from "./Progress";
 import "./ProjectList.css";
 
@@ -28,6 +28,7 @@ const ProjectList = ({ color, content }) => {
   };
 
   const handleDonateClick = (projectId) => {
+    console.log(projectId);
     navigate(`/donor/create-donation`, { state: { projectId } });
   };
 
@@ -44,9 +45,8 @@ const ProjectList = ({ color, content }) => {
   }
 
   return (
-    <div className="project-list">
+    <div className="project-list mt-3">
       {projects.map((project) => (
-
         <div
           key={project._id}
           className="project-card"
@@ -64,8 +64,16 @@ const ProjectList = ({ color, content }) => {
 
           {content && (
             <>
-              <Progress projectId={project._id} />
-              <button className="donate">Donate now</button>
+              <Progress
+                goalAmount={project.goalAmount}
+                currentAmount={project.currentAmount}
+              />
+              <button
+                className="donate"
+                onClick={() => handleDonateClick(project._id)}
+              >
+                Donate now
+              </button>
             </>
           )}
         </div>

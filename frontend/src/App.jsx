@@ -3,7 +3,6 @@ import { useState } from "react";
 import Student from "./Pages/Student";
 import Admin from "./Pages/Admin";
 import { Route, Routes } from "react-router-dom";
-import PaymentForm from "./components/PaymentForm.jsx";
 import Sidebar from "./components/Admin/components/Sidebar";
 import Donar from "./Pages/Donar";
 import Navbar from "./components/Navbar.jsx";
@@ -16,15 +15,12 @@ const App = () => {
 
   return (
     <>
-      <Navbar></Navbar>
-      <PaymentForm></PaymentForm>
+      {roles === "student" || roles === "donor" ? <Navbar /> : ""}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Logins />} />
         {roles === "student" && <Route path="/student" element={<Student />} />}
-
-        {roles === "donor" && <Route path="/" element={<Donar />} />}
 
         {roles === "donor" && <Route path="/donor/*" element={<Donar />} />}
 
