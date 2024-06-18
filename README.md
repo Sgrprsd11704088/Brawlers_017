@@ -78,6 +78,10 @@ https://brawlers-017.onrender.com/
 In case of Backend Applications provide a list of your API endpoints, methods, brief descriptions, and examples of request/response.
 GET /api/items - retrieve all items
 POST /api/items - create a new item
+      users: "/api/users",
+      auth: "/api/auth",
+      projects: "/api/projects",
+      donations: "/api/donations",
 
 
 ## Technology Stack
